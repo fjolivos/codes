@@ -9,7 +9,7 @@ clear all
 version 14
 set more off
 
-global root = "C:\Users\fjoli\Dropbox\Data\Barometro de la Felicidad"
+global root   = "C:\Users\fjoli\Dropbox\Data\Barometro de la Felicidad"
 global output = "C:\Users\fjoli\Dropbox\180301 Social Comparison and Life Satisfaction\Submition JHS\Results"
 
 ********************************************************************************
@@ -61,31 +61,31 @@ tab ratio
 *Ratio meadian
 
 egen hapAlt_median = rowmedian(P24_A-P24_E)
-gen ratio_median = hapAlt_median/P1
+gen ratio_median   = hapAlt_median/P1
 
 *Standard operationalization
 *Downward (I1)
 
-gen Down = abs(P1-hapAlt) if P1>=hapAlt
+gen Down     = abs(P1-hapAlt) if P1>=hapAlt
 replace Down = 0 if P1<hapAlt
 
 *Upward (I2)
 
-gen Up = abs(P1-hapAlt) if P1<=hapAlt
+gen Up     = abs(P1-hapAlt) if P1<=hapAlt
 replace Up = 0 if P1>hapAlt
 
 
 *Alternatives measurements: Median
 
-gen Down_median = abs(P1-hapAlt_median) if P1>=hapAlt_median
+gen Down_median     = abs(P1-hapAlt_median) if P1>=hapAlt_median
 replace Down_median = 0 if P1<hapAlt_median
-gen Up_median = abs(P1-hapAlt_median) if P1<=hapAlt_median
-replace Up_median = 0 if P1>hapAlt_median
+gen Up_median       = abs(P1-hapAlt_median) if P1<=hapAlt_median
+replace Up_median   = 0 if P1>hapAlt_median
 
 *Simlarity age
 
 egen ageAlt = rowmean( P20_C_1-P20_C_5)
-gen ageSim = abs(EDAD_ENCUESTADO-ageAlt)
+gen ageSim  = abs(EDAD_ENCUESTADO-ageAlt)
 
 *Similarity Gender
 
@@ -93,8 +93,7 @@ foreach var of varlist P20_B_1-P20_B_5 SEXO_ENCUESTADO {
 	recode `var' (1=1) (2=0) (9=.)
 }
 egen genAlt = rowmean(P20_B_1-P20_B_5)
-
-gen genSim = abs(SEXO_ENCUESTADO-genAlt)
+gen genSim  = abs(SEXO_ENCUESTADO-genAlt)
 
 *Similarity Education
 
@@ -103,7 +102,7 @@ foreach var of varlist P20_E_1-P20_E_5{
 	recode `var' (1/5=0) (6/10=1) (99=.)
 }
 egen eduAlt = rowmean(P20_E_1-P20_E_5)
-gen eduSim = abs(educ_enc3-eduAlt)
+gen eduSim  = abs(educ_enc3-eduAlt)
 
 *Proportion family
 
@@ -264,7 +263,9 @@ local varlist1 Education Gender Employed Unemployed Inactive Single Married Othe
       recNetwork2 P45 fecha2 Diener_escala Down Up Age Size ageAlt genAlt eduAlt famAlt P45
 tabstat `varlist1', stat(mean sd median p10 p25 p75 p90 N min max) c(s)
 
-drop if Down==. | Up==. | Age==. |  Education==. | Gender==. | Marital==. | Labor==. | Size==. | recNetwork2==. | Diener_escala==. | P45==. | fecha2==. | ageAlt==. | genAlt==. | eduAlt==. | famAlt==. 
+drop if Down==. | Up==. | Age==. |  Education==. | Gender==. | Marital==. | ///
+        Labor==. | Size==. | recNetwork2==. | Diener_escala==. | P45==. | ///
+		fecha2==. | ageAlt==. | genAlt==. | eduAlt==. | famAlt==. 
 
 *****TABLE 1
 
