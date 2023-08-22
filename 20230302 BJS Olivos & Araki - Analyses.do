@@ -1,7 +1,7 @@
 ********************************************************************************
 *                      Cultural Capital and Teacher Bias                       *
-*                               May 25 2022                                  *
-*                             Olivos & Araki                               *
+*                               May 25 2022                                    *
+*                             Olivos & Araki                                   *
 ********************************************************************************       
 
 clear
@@ -181,7 +181,7 @@ alpha legcul01w legcul03w legcul04w read02w extra01w extra03w if wave==1 & asamp
 alpha legcul01w legcul03w legcul04w read02w extra01w extra03w if wave==2 & asample==1, item	// 0.4845	
 				
 		
-*************FE models (Table 2)
+*************FE models (Table 3-4)
 
 *Hausman can not be used without vce cluster and they support fe
 
@@ -193,7 +193,7 @@ xtreg hrtpra0 nfactorw i.wave if asample==1, fe vce(cluster clsids)
 outreg2 using "${output}\index", dec(3) label excel ct(hrtpra) alpha(0.001, 0.01, 0.05) append
 xtreg hrtpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave if asample==1, vce(cluster clsids)
 outreg2 using "${output}\index", dec(3) label excel ct(hrtpra) alpha(0.001, 0.01, 0.05) append
-xtreg hrtpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1
+xtreg hrtpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1 // Reported Table 3
 estimate store a2
 outreg2 using "${output}\index", dec(3) label excel ct(hrtpra) alpha(0.001, 0.01, 0.05) append
 
@@ -206,28 +206,28 @@ outreg2 using "${output}\index", dec(3) label excel ct(hrtpra) alpha(0.001, 0.01
 *Praised by subject teachers
 
 
-xtreg tmatpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, vce(cluster clsids)
+xtreg tmatpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store b2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tmatpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tmatpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, fe vce(cluster clsids) // Reported Table 4
 estimate store b1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
 *hausman b1 b2, sigmamore
 
-xtreg tchipra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, vce(cluster clsids)
-estimate store c2
+xtreg tchipra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
+estimate store c2 
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tchipra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tchipra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, fe vce(cluster clsids)// Reported Table 4
 estimate store c1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
 *hausman c1 c2, sigmamore
 
-xtreg tengpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, vce(cluster clsids)
+xtreg tengpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store d2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tengpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tengpra0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, fe vce(cluster clsids)// Reported Table 4
 estimate store d1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
@@ -235,28 +235,28 @@ outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01,
 
 *Ask question to student 
 
-xtreg tmatask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, vce(cluster clsids)
+xtreg tmatask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store e2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tmatask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tmatask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave matagew matb07w matfemale matb04w2-matb04w4 if asample==1, fe vce(cluster clsids)// Reported Table 4
 estimate store e1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
 *hausman e1 e2, sigmamore
 
-xtreg tchiask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, vce(cluster clsids)
+xtreg tchiask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store f2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tchiask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tchiask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave chnagew chnb07w chnfemale chnb04w2-chnb04w4 if asample==1, fe vce(cluster clsids)// Reported Table 4
 estimate store f1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
 *hausman f1 f2, sigmamore
 
-xtreg tengask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, vce(cluster clsids)
+xtreg tengask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store g2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg tengask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, fe vce(cluster clsids)
+xtreg tengask0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave engagew engb07w engfemale engb04w2-engb04w4 if asample==1, fe vce(cluster clsids) // Reported Table 4
 estimate store g1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
@@ -264,16 +264,16 @@ outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01,
 
 *Home room teacher criticizes
 
-xtreg hrtcri0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1, vce(cluster clsids)
+xtreg hrtcri0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1, vce(cluster clsids) // Reported Table 3
 estimate store h2
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
-xtreg hrtcri0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1, fe vce(cluster clsids)
+xtreg hrtcri0 nfactorw gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1, fe vce(cluster clsids) // Reported Table 4
 estimate store h1
 outreg2 using "${output}\index", dec(3) label excel ct(`var') alpha(0.001, 0.01, 0.05) append
 
 *hausman h1 h2, sigmamore
 
-*************FE models per item (Table 3)
+*************FE models per item (Table 5)
 
 xtreg hrtcri0 legcul01w gm gc ge cog numbestfrie selfcon matsu chisu engsu i.wave hragew hrc07w hrfemale hrc04w2-hrc04w4 hra01w2-hra01w4 if asample==1, fe vce(cluster clsids) // delete, just the base table
 outreg2 using "${output}\items", dec(3) label excel ct(FE) alpha(0.001, 0.01, 0.05) replace
